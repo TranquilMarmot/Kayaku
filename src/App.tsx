@@ -1,21 +1,25 @@
-import React, { FunctionComponent, useReducer } from "react";
+import React, { FunctionComponent, useReducer, createContext } from "react";
 import "./App.css";
 import CardsReducer, { getInitialState } from "./CardsReducer";
 import Card from "./Card";
-import { CardClicked } from "./actions";
+import { ActionTypes } from "./actions";
+
+const initialState = getInitialState();
+
+export const CardsContext = createContext([
+  initialState,
+  (action: ActionTypes) => {}
+]);
 
 const App: FunctionComponent = () => {
-  const [cards, dispatch] = useReducer(CardsReducer, getInitialState());
-
   return (
     <div className="App">
-      {cards.map((card, index) => (
-        <Card
-          key={`card${index}`}
-          card={card}
-          onSelectCard={() => dispatch(CardClicked(index, card))}
-        />
-      ))}
+      <CardsContext.Provider value={useReducer(CardsReducer, initialState)}>
+        <Card index={0} />
+        <Card index={1} />
+        <Card index={2} />
+        <Card index={3} />
+      </CardsContext.Provider>
     </div>
   );
 };

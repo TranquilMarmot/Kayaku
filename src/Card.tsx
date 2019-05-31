@@ -1,19 +1,23 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useContext } from "react";
+import { CardsContext } from "./App";
+import { CardClicked, ActionTypes } from "./actions";
 import { Card as CardType } from "./types";
 
 interface CardProps {
-  card: CardType;
-  onSelectCard: OnSelectCardCallback;
+  index: number;
 }
 
-interface OnSelectCardCallback {
-  (event: React.MouseEvent, card: CardType): void;
-}
+const Card: FunctionComponent<CardProps> = (props: CardProps) => {
+  const [cards, dispatch] = useContext(CardsContext);
 
-const Card: FunctionComponent<CardProps> = ({ card, onSelectCard }) => {
-  const { color, number } = card;
+  const { index } = props;
+
+  // @ts-ignore
+  const { color, number } = cards[index];
+
   return (
-    <button onClick={e => onSelectCard(e, card)}>
+    // @ts-ignore
+    <button onClick={e => dispatch(CardClicked(index))}>
       <div>
         <div>Red: {color.red}</div>
         <div>Blue: {color.blue}</div>

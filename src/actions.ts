@@ -44,10 +44,9 @@ export interface CardClickedAction extends Action {
   card: Card;
 }
 
-export const CardClicked = (index: number, card: Card) => ({
+export const CardClicked = (index: number) => ({
   type: Actions.CardClicked,
-  index,
-  card
+  index
 });
 
 export type ActionTypes = GiveHintAction | PlayCardAction | CardClickedAction;
