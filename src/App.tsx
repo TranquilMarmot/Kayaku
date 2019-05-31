@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FunctionComponent, useReducer } from "react";
+import "./App.css";
+import CardsReducer, { getInitialState } from "./CardsReducer";
+import Card from "./Card";
+import { CardClicked } from "./actions";
 
-const App: React.FC = () => {
+const App: FunctionComponent = () => {
+  const [cards, dispatch] = useReducer(CardsReducer, getInitialState());
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {cards.map((card, index) => (
+        <Card
+          key={`card${index}`}
+          card={card}
+          onSelectCard={() => dispatch(CardClicked(index, card))}
+        />
+      ))}
     </div>
   );
-}
+};
 
 export default App;
