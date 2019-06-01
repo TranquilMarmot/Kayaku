@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useContext } from "react";
-import { CardsContext } from "./App";
-import { CardClicked, ActionTypes } from "./actions";
+import { CardsContext } from "./Hand";
+import { CardClicked } from "./actions";
 import { Card as CardType } from "./types";
 
 interface CardProps {
@@ -12,11 +12,9 @@ const Card: FunctionComponent<CardProps> = (props: CardProps) => {
 
   const { index } = props;
 
-  // @ts-ignore
-  const { color, number } = cards[index];
+  const { color, number } = cards[index] as CardType;
 
   return (
-    // @ts-ignore
     <button onClick={e => dispatch(CardClicked(index))}>
       <div>
         <div>Red: {color.red}</div>

@@ -1,25 +1,19 @@
-import React, { FunctionComponent, useReducer, createContext } from "react";
+import React, { FunctionComponent, useState } from "react";
 import "./App.css";
-import CardsReducer, { getInitialState } from "./CardsReducer";
-import Card from "./Card";
-import { ActionTypes } from "./actions";
-
-const initialState = getInitialState();
-
-export const CardsContext = createContext([
-  initialState,
-  (action: ActionTypes) => {}
-]);
+import Hand from "./Hand";
 
 const App: FunctionComponent = () => {
+  const [numberOfCards, setNumberOfCards] = useState(-1);
+
   return (
     <div className="App">
-      <CardsContext.Provider value={useReducer(CardsReducer, initialState)}>
-        <Card index={0} />
-        <Card index={1} />
-        <Card index={2} />
-        <Card index={3} />
-      </CardsContext.Provider>
+      {numberOfCards < 0 && (
+        <div>
+          <button onClick={() => setNumberOfCards(4)}>4</button>
+          <button onClick={() => setNumberOfCards(5)}>5</button>
+        </div>
+      )}
+      {numberOfCards > 0 && <Hand numberOfCards={numberOfCards} />}
     </div>
   );
 };

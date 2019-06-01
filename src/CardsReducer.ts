@@ -18,13 +18,15 @@ const createCard = (): Card => ({
   }
 });
 
-export const getInitialState = (): Card[] => [
-  createCard(),
-  createCard(),
-  createCard(),
-  createCard(),
-  createCard()
-];
+export const getInitialState = (numberOfCards: number): Card[] => {
+  const cards: Card[] = [];
+
+  for (let i = 0; i < numberOfCards; i++) {
+    cards.push(createCard());
+  }
+
+  return cards;
+};
 
 interface Action {
   type: string;
