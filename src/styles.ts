@@ -1,15 +1,5 @@
 import { css } from "@emotion/core";
 
-export const baseButton = css`
-  border-radius: 5px;
-  border: 1px solid;
-  padding: 10px;
-  background-color: white;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
 export const baseModalBackground = css`
   position: fixed; /* Stay in place */
   z-index: 1000; /* Sit on top */

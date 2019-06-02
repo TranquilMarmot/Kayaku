@@ -5,13 +5,12 @@ import React, {
   Context,
   useState
 } from "react";
-import "./App.css";
 import CardsReducer, { getInitialState } from "./CardsReducer";
 import Card from "./Card";
 import { ActionTypes } from "./actions";
 import { Card as CardType } from "./types";
 import GiveHintModal from "./GiveHintModal";
-import { baseButton } from "./styles";
+import Button from "./Button";
 
 // this initial state and context are created on first render
 let initialState: CardType[];
@@ -47,12 +46,9 @@ const Hand: FunctionComponent<HandProps> = ({ numberOfCards }) => {
       <CardsContext.Provider value={useReducer(CardsReducer, initialState)}>
         {renderCards(numberOfCards)}
         <div>
-          <button
-            css={baseButton}
-            onClick={() => setShowingGiveHintModal(true)}
-          >
+          <Button onClick={() => setShowingGiveHintModal(true)}>
             Give Hint
-          </button>
+          </Button>
         </div>
         {showingGiveHintModal && (
           <GiveHintModal closeModal={() => setShowingGiveHintModal(false)} />
