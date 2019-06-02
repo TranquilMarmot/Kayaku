@@ -1,34 +1,78 @@
-import React, { FunctionComponent, useContext } from "react";
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
+import { FunctionComponent, useContext } from "react";
 import { CardsContext } from "./Hand";
 import { CardClicked } from "./actions";
-import { Card as CardType } from "./types";
+import { Card as CardType, Confidence } from "./types";
 
 interface CardProps {
   index: number;
 }
 
-const Card: FunctionComponent<CardProps> = (props: CardProps) => {
+const renderColor = (card: CardType, color: string, emoji: string) => {
+  switch (card.color[color]) {
+    case Confidence.Positive:
+      return (
+        <span role="img" aira-label={`${color}`}>
+          {emoji}
+        </span>
+      );
+    case Confidence.Maybe:
+      return (
+        <span role="img" aira-label={`${color} maybe`}>
+          {emoji}❔
+        </span>
+      );
+    case Confidence.Unknown:
+    default:
+      return null;
+  }
+};
+
+const renderNumber = (card: CardType, number: string, emoji: string) => {
+  switch (card.number[number]) {
+    case Confidence.Positive:
+      return (
+        <span role="img" aira-label={`${number}`}>
+          {emoji}
+        </span>
+      );
+    case Confidence.Maybe:
+      return (
+        <span role="img" aira-label={`${number} maybe`}>
+          {emoji}❔
+        </span>
+      );
+    case Confidence.Unknown:
+    default:
+      return null;
+  }
+};
+
+const cardStyle = css`
+  min-height: 250px;
+`;
+
+const Card: FunctionComponent<CardProps> = ({ index }) => {
   const [cards, dispatch] = useContext(CardsContext);
 
-  const { index } = props;
-
-  const { color, number } = cards[index] as CardType;
+  const card = cards[index] as CardType;
 
   return (
-    <button onClick={e => dispatch(CardClicked(index))}>
+    <button css={cardStyle} onClick={e => dispatch(CardClicked(index))}>
       <div>
-        <div>Red: {color.red}</div>
-        <div>Blue: {color.blue}</div>
-        <div>Yellow: {color.yellow}</div>
-        <div>Green: {color.green}</div>
-        <div>White: {color.white}</div>
+        {renderColor(card, "blue", "🔷")}
+        {renderColor(card, "yellow", "💛")}
+        {renderColor(card, "red", "🔺")}
+        {renderColor(card, "green", "🍏")}
+        {renderColor(card, "white", "⬜")}
       </div>
       <div>
-        <div>One: {number.one}</div>
-        <div>Two: {number.two}</div>
-        <div>Three: {number.three}</div>
-        <div>Four: {number.four}</div>
-        <div>Five: {number.five}</div>
+        {renderNumber(card, "one", "1️⃣")}
+        {renderNumber(card, "two", "2️⃣")}
+        {renderNumber(card, "three", "3️⃣")}
+        {renderNumber(card, "four", "4️⃣")}
+        {renderNumber(card, "five", "5️⃣")}
       </div>
     </button>
   );

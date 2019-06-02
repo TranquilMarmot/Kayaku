@@ -1,6 +1,6 @@
 export enum Confidence {
   Unknown = "unknown",
-  Negative = "negative",
+  Maybe = "maybe",
   Positive = "positive"
 }
 

@@ -1,4 +1,6 @@
-import React, {
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
+import {
   FunctionComponent,
   useReducer,
   createContext,
@@ -41,10 +43,15 @@ const Hand: FunctionComponent<HandProps> = ({ numberOfCards }) => {
 
   const [showingGiveHintModal, setShowingGiveHintModal] = useState(false);
 
+  const cardsContainerStyle = css`
+    display: grid;
+    grid-template-columns: repeat(${numberOfCards}, 1fr);
+  `;
+
   return (
-    <div className="App">
+    <div>
       <CardsContext.Provider value={useReducer(CardsReducer, initialState)}>
-        {renderCards(numberOfCards)}
+        <div css={cardsContainerStyle}>{renderCards(numberOfCards)}</div>
         <div>
           <Button onClick={() => setShowingGiveHintModal(true)}>
             Give Hint

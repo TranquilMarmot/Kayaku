@@ -4,6 +4,7 @@ import { FunctionComponent } from "react";
 
 interface ButtonProps {
   children: string | JSX.Element;
+  disabled?: boolean;
   onClick: () => void;
 }
 
