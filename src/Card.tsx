@@ -13,14 +13,14 @@ const renderColor = (card: CardType, color: string, emoji: string) => {
   switch (card.color[color]) {
     case Confidence.Positive:
       return (
-        <span role="img" aira-label={`${color}`}>
+        <span role="img" aria-label={`${color}`}>
           {emoji}
         </span>
       );
-    case Confidence.Maybe:
+    case Confidence.Negative:
       return (
-        <span role="img" aira-label={`${color} maybe`}>
-          {emoji}❔
+        <span role="img" aria-label={`${color} negative`}>
+          {emoji}❌
         </span>
       );
     case Confidence.Unknown:
@@ -33,14 +33,14 @@ const renderNumber = (card: CardType, number: string, emoji: string) => {
   switch (card.number[number]) {
     case Confidence.Positive:
       return (
-        <span role="img" aira-label={`${number}`}>
+        <span role="img" aria-label={`${number}`}>
           {emoji}
         </span>
       );
-    case Confidence.Maybe:
+    case Confidence.Negative:
       return (
-        <span role="img" aira-label={`${number} maybe`}>
-          {emoji}❔
+        <span role="img" aria-label={`${number} negative`}>
+          {emoji}❌
         </span>
       );
     case Confidence.Unknown:

@@ -73,9 +73,11 @@ const dispatchHint = (
   selectedNumberOrColor: string,
   closeModal: () => void
 ) => {
-  const selectedIndices = selectedCards
-    .map((_boolean, index) => index)
-    .map(Number);
+  const selectedIndices: number[] = [];
+
+  selectedCards.forEach((isChecked, index) =>
+    isChecked ? selectedIndices.push(index) : null
+  );
 
   const selectedColor = isColor(selectedNumberOrColor)
     ? selectedNumberOrColor
@@ -100,7 +102,9 @@ const GiveHintModal: FunctionComponent<GiveHintModalProps> = ({
 }) => {
   const [cards, dispatch] = useContext(CardsContext);
 
-  const [selectedCards, setSelectedCards] = useState<boolean[]>([]);
+  const [selectedCards, setSelectedCards] = useState<boolean[]>(
+    Array(cards.length).fill(false)
+  );
   const [selectedNumberOrColor, setSelectedNumberOrColor] = useState<string>(
     ""
   );

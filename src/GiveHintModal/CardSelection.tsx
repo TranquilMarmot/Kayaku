@@ -34,25 +34,15 @@ const onCheckboxChange = (
   selectedCards: boolean[],
   setSelectedCards: Dispatch<SetStateAction<boolean[]>>
 ) => {
-  selectedCards.map((value, index) => {
-    console.log(e, value, index);
-    if (index === index) {
-      return e.target.checked;
-    } else {
-      return value;
-    }
-  });
-
-  /*setSelectedCards(
+  setSelectedCards(
     selectedCards.map((value, index) => {
-      console.log(selectedCards, value, index);
-      if (index === i) {
+      if (`${index}` === e.target.dataset.index) {
         return e.target.checked;
       } else {
         return value;
       }
     })
-  )*/
+  );
 };
 
 const CardSelection: FunctionComponent<CardSelectionProps> = ({
@@ -74,6 +64,7 @@ const CardSelection: FunctionComponent<CardSelectionProps> = ({
         </label>
         <input
           id={`select-card-${i}`}
+          data-index={i}
           type="checkbox"
           checked={selectedCards[i]}
           onChange={e => onCheckboxChange(e, selectedCards, setSelectedCards)}

@@ -1,7 +1,7 @@
 export enum Confidence {
   Unknown = "unknown",
-  Maybe = "maybe",
-  Positive = "positive"
+  Positive = "positive",
+  Negative = "negative"
 }
 
 export interface Card {

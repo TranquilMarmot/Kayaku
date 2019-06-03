@@ -53,19 +53,33 @@ type ActionTypes = GiveHintAction | PlayCardAction | CardClickedAction;
 const giveHint = (state: Card[], action: GiveHintAction): Card[] => {
   const { indices, color, number, confidence } = action;
 
-  const newState = [...state];
+  return state.map((card, index) => {
+    const inHint = indices.includes(index);
 
-  indices.forEach(index => {
+    // TODO this needs to be more complicated for rainbow cards
+    // (if given two clues of color to one card, it's rainbow)
     if (color) {
-      newState[index].color[color] = confidence;
+      return {
+        ...card,
+        color: {
+          ...card.color,
+          [color]: inHint ? Confidence.Positive : Confidence.Negative
+        }
+      };
     }
 
     if (number) {
-      newState[index].number[number] = confidence;
+      return {
+        ...card,
+        number: {
+          ...card.number,
+          [number]: inHint ? Confidence.Positive : Confidence.Negative
+        }
+      };
     }
-  });
 
-  return state;
+    return card;
+  });
 };
 
 const playCard = (state: Card[], action: PlayCardAction): Card[] => {
