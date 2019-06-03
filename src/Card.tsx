@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import { FunctionComponent, useContext } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import { CardsContext } from "./Hand";
 import { CardClicked } from "./actions";
 import { Card as CardType, Confidence } from "./types";
@@ -9,48 +9,94 @@ interface CardProps {
   index: number;
 }
 
-const renderColor = (card: CardType, color: string, emoji: string) => {
-  switch (card.color[color]) {
+const renderConfidence = (confidence: Confidence) => {
+  switch (confidence) {
     case Confidence.Positive:
       return (
-        <span role="img" aria-label={`${color}`}>
-          {emoji}
+        <span role="img" aria-label="positive">
+          ✔
         </span>
       );
     case Confidence.Negative:
       return (
-        <span role="img" aria-label={`${color} negative`}>
-          {emoji}❌
+        <span role="img" aria-label="negative">
+          ❌
         </span>
       );
     case Confidence.Unknown:
     default:
-      return null;
+      return <span />;
   }
 };
 
-const renderNumber = (card: CardType, number: string, emoji: string) => {
-  switch (card.number[number]) {
-    case Confidence.Positive:
-      return (
+const renderColor = (
+  card: CardType,
+  color: string,
+  emoji: string,
+  row: number
+) => {
+  return (
+    <React.Fragment>
+      <div
+        css={css`
+          grid-row: ${row};
+          grid-column: 1;
+        `}
+      >
+        <span role="img" aria-label={`${color}`}>
+          {emoji}
+        </span>
+      </div>
+      <div
+        css={css`
+          grid-row: ${row};
+          grid-column: 2;
+        `}
+      >
+        {renderConfidence(card.color[color])}
+      </div>
+    </React.Fragment>
+  );
+};
+
+const renderNumber = (
+  card: CardType,
+  number: string,
+  emoji: string,
+  row: number
+) => {
+  return (
+    <React.Fragment>
+      <div
+        css={css`
+          grid-row: ${row};
+          grid-column: 1;
+        `}
+      >
         <span role="img" aria-label={`${number}`}>
           {emoji}
         </span>
-      );
-    case Confidence.Negative:
-      return (
-        <span role="img" aria-label={`${number} negative`}>
-          {emoji}❌
-        </span>
-      );
-    case Confidence.Unknown:
-    default:
-      return null;
-  }
+      </div>
+      <div
+        css={css`
+          grid-row: ${row};
+          grid-column: 2;
+        `}
+      >
+        {renderConfidence(card.number[number])}
+      </div>
+    </React.Fragment>
+  );
 };
 
 const cardStyle = css`
   min-height: 250px;
+`;
+
+const confidenceGridStyle = css`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
 `;
 
 const Card: FunctionComponent<CardProps> = ({ index }) => {
@@ -60,19 +106,19 @@ const Card: FunctionComponent<CardProps> = ({ index }) => {
 
   return (
     <button css={cardStyle} onClick={e => dispatch(CardClicked(index))}>
-      <div>
-        {renderColor(card, "blue", "🔷")}
-        {renderColor(card, "yellow", "💛")}
-        {renderColor(card, "red", "🔺")}
-        {renderColor(card, "green", "🍏")}
-        {renderColor(card, "white", "⬜")}
+      <div css={confidenceGridStyle}>
+        {renderColor(card, "blue", "🔷", 1)}
+        {renderColor(card, "yellow", "💛", 2)}
+        {renderColor(card, "red", "🔺", 3)}
+        {renderColor(card, "green", "🍏", 4)}
+        {renderColor(card, "white", "⬜", 5)}
       </div>
-      <div>
-        {renderNumber(card, "one", "1️⃣")}
-        {renderNumber(card, "two", "2️⃣")}
-        {renderNumber(card, "three", "3️⃣")}
-        {renderNumber(card, "four", "4️⃣")}
-        {renderNumber(card, "five", "5️⃣")}
+      <div css={confidenceGridStyle}>
+        {renderNumber(card, "one", "1️⃣", 1)}
+        {renderNumber(card, "two", "2️⃣", 2)}
+        {renderNumber(card, "three", "3️⃣", 3)}
+        {renderNumber(card, "four", "4️⃣", 4)}
+        {renderNumber(card, "five", "5️⃣", 5)}
       </div>
     </button>
   );

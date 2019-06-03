@@ -7,10 +7,14 @@ import Button from "./Button";
 
 const mainContainerStyle = css`
   text-align: center;
-  background-color: black;
   width: 100%;
   height: 100%;
   color: white;
+  background: linear-gradient(
+    135deg,
+    rgba(50, 255, 57, 1) 0%,
+    rgba(137, 196, 255, 1) 100%
+  );
 `;
 
 const numberOfCardsContainerStyle = css`

@@ -11,7 +11,7 @@ export interface Card {
     red: Confidence;
     green: Confidence;
     white: Confidence;
-    [key: string]: string;
+    [key: string]: Confidence;
   };
   number: {
     one: Confidence;
@@ -19,6 +19,6 @@ export interface Card {
     three: Confidence;
     four: Confidence;
     five: Confidence;
-    [key: string]: string;
+    [key: string]: Confidence;
   };
 }

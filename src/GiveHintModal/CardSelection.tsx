@@ -15,6 +15,11 @@ const selectCardChecboxLabelStyle = css`
   border-radius: 5px;
   border: 1px solid black;
   margin-bottom: 5px;
+  background-color: white;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const selectCardCheckboxContainerStyle = css`

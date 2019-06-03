@@ -36,7 +36,6 @@ interface GiveHintAction extends Action {
   indices: number[];
   color?: string;
   number?: string;
-  confidence: Confidence;
 }
 
 interface PlayCardAction extends Action {
@@ -51,7 +50,7 @@ interface CardClickedAction extends Action {
 type ActionTypes = GiveHintAction | PlayCardAction | CardClickedAction;
 
 const giveHint = (state: Card[], action: GiveHintAction): Card[] => {
-  const { indices, color, number, confidence } = action;
+  const { indices, color, number } = action;
 
   return state.map((card, index) => {
     const inHint = indices.includes(index);

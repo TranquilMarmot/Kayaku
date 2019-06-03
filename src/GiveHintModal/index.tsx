@@ -28,11 +28,15 @@ const baseModalBackground = css`
 `;
 
 const baseModalContent = css`
-  background-color: #fefefe;
   margin: auto;
   border: 1px solid #888;
   width: 80%;
   color: black;
+  background: linear-gradient(
+    315deg,
+    rgba(137, 196, 255, 1) 0%,
+    rgba(50, 255, 57, 1) 100%
+  );
 `;
 
 const hintSelectionStyle = css`

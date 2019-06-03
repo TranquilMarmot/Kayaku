@@ -7,6 +7,10 @@ const labelStyle = css`
   padding: 10px;
   min-width: 50px;
   display: inline-block;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const renderColorOrNumberRadioButton = (
