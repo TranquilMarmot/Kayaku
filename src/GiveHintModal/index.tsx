@@ -1,17 +1,10 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-import {
-  FunctionComponent,
-  useContext,
-  useState,
-  Dispatch,
-  SetStateAction
-} from "react";
+import { FunctionComponent, useContext, useState } from "react";
 
 import { CardsContext } from "../Hand";
-import Button from "../Button";
-import { Card, Confidence } from "../types";
+import { Confidence } from "../types";
 import { GiveHint, ActionTypes } from "../actions";
 
 import CardSelection from "./CardSelection";
@@ -42,12 +35,64 @@ const baseModalContent = css`
   color: black;
 `;
 
+const hintSelectionStyle = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const isNumber = (selectedNumberOrColor: string): boolean => {
+  switch (selectedNumberOrColor) {
+    case "one":
+    case "two":
+    case "three":
+    case "four":
+    case "five":
+      return true;
+    default:
+      return false;
+  }
+};
+
+const isColor = (selectedNumberOrColor: string): boolean => {
+  switch (selectedNumberOrColor) {
+    case "blue":
+    case "yellow":
+    case "red":
+    case "green":
+    case "white":
+      return true;
+    default:
+      return false;
+  }
+};
+
 const dispatchHint = (
   dispatch: (type: ActionTypes) => void,
   selectedCards: boolean[],
-  selectedNumberOrColor: string
+  selectedNumberOrColor: string,
+  closeModal: () => void
 ) => {
-  // TODO dispatch(GiveHint)
+  const selectedIndices = selectedCards
+    .map((_boolean, index) => index)
+    .map(Number);
+
+  const selectedColor = isColor(selectedNumberOrColor)
+    ? selectedNumberOrColor
+    : undefined;
+  const selectedNumber = isNumber(selectedNumberOrColor)
+    ? selectedNumberOrColor
+    : undefined;
+
+  dispatch(
+    GiveHint(
+      selectedIndices,
+      Confidence.Positive,
+      selectedColor,
+      selectedNumber
+    )
+  );
+  closeModal();
 };
 
 const GiveHintModal: FunctionComponent<GiveHintModalProps> = ({
@@ -64,11 +109,7 @@ const GiveHintModal: FunctionComponent<GiveHintModalProps> = ({
     <div css={baseModalBackground}>
       <div css={baseModalContent}>
         <h1>Give Hint</h1>
-        <div
-          css={css`
-            display: flex;
-          `}
-        >
+        <div css={hintSelectionStyle}>
           <CardSelection
             cards={cards}
             selectedCards={selectedCards}
@@ -82,7 +123,12 @@ const GiveHintModal: FunctionComponent<GiveHintModalProps> = ({
         <Footer
           onCloseClick={closeModal}
           onConfirmClick={() =>
-            dispatchHint(dispatch, selectedCards, selectedNumberOrColor)
+            dispatchHint(
+              dispatch,
+              selectedCards,
+              selectedNumberOrColor,
+              closeModal
+            )
           }
         />
       </div>

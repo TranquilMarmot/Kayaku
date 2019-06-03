@@ -1,14 +1,26 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 
-import React, { Dispatch, SetStateAction, FunctionComponent } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  FunctionComponent,
+  ChangeEvent
+} from "react";
 
 import { Card } from "../types";
 
 const selectCardChecboxLabelStyle = css`
-  padding: 10px;
+  padding: 25px 20px;
   border-radius: 5px;
   border: 1px solid black;
+  margin-bottom: 5px;
+`;
+
+const selectCardCheckboxContainerStyle = css`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 `;
 
 interface CardSelectionProps {
@@ -16,6 +28,32 @@ interface CardSelectionProps {
   selectedCards: boolean[];
   setSelectedCards: Dispatch<SetStateAction<boolean[]>>;
 }
+
+const onCheckboxChange = (
+  e: ChangeEvent<HTMLInputElement>,
+  selectedCards: boolean[],
+  setSelectedCards: Dispatch<SetStateAction<boolean[]>>
+) => {
+  selectedCards.map((value, index) => {
+    console.log(e, value, index);
+    if (index === index) {
+      return e.target.checked;
+    } else {
+      return value;
+    }
+  });
+
+  /*setSelectedCards(
+    selectedCards.map((value, index) => {
+      console.log(selectedCards, value, index);
+      if (index === i) {
+        return e.target.checked;
+      } else {
+        return value;
+      }
+    })
+  )*/
+};
 
 const CardSelection: FunctionComponent<CardSelectionProps> = ({
   cards,
@@ -28,10 +66,8 @@ const CardSelection: FunctionComponent<CardSelectionProps> = ({
     selectCardCheckboxes.push(
       <div
         key={`select-card-${i}`}
-        css={css`
-          display: flex;
-          flex-direction: column;
-        `}
+        data-card-index={i}
+        css={selectCardCheckboxContainerStyle}
       >
         <label css={selectCardChecboxLabelStyle} htmlFor={`select-card-${i}`}>
           {i + 1}
@@ -40,23 +76,21 @@ const CardSelection: FunctionComponent<CardSelectionProps> = ({
           id={`select-card-${i}`}
           type="checkbox"
           checked={selectedCards[i]}
-          onChange={e =>
-            setSelectedCards(
-              selectedCards.map((value, index) => {
-                if (index === i) {
-                  return e.target.checked;
-                } else {
-                  return value;
-                }
-              })
-            )
-          }
+          onChange={e => onCheckboxChange(e, selectedCards, setSelectedCards)}
         />
       </div>
     );
   }
 
-  return <React.Fragment>{selectCardCheckboxes}</React.Fragment>;
+  return (
+    <div
+      css={css`
+        display: flex;
+      `}
+    >
+      {selectCardCheckboxes}
+    </div>
+  );
 };
 
 export default CardSelection;

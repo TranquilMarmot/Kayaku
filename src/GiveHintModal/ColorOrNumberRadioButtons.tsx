@@ -3,6 +3,12 @@ import { css, jsx } from "@emotion/core";
 
 import { FunctionComponent, Dispatch, SetStateAction } from "react";
 
+const labelStyle = css`
+  padding: 10px;
+  min-width: 50px;
+  display: inline-block;
+`;
+
 const renderColorOrNumberRadioButton = (
   value: string,
   emoji: string,
@@ -12,7 +18,9 @@ const renderColorOrNumberRadioButton = (
   const id = `color-or-number-${value}`;
   return (
     <div>
-      <label htmlFor={id}>{emoji}</label>
+      <label htmlFor={id} css={labelStyle}>
+        {emoji}
+      </label>
       <input
         type="radio"
         id={id}
@@ -25,6 +33,11 @@ const renderColorOrNumberRadioButton = (
   );
 };
 
+const radioListStyle = css`
+  font-size: 30px;
+  display: flex;
+`;
+
 interface ColorOrNumberRadioButtonsProps {
   selectedNumberOrColor: string;
   setSelectedNumberOrColor: Dispatch<SetStateAction<string>>;
@@ -35,7 +48,7 @@ const ColorOrNumberRadioButtons: FunctionComponent<
 > = ({ selectedNumberOrColor, setSelectedNumberOrColor }) => {
   return (
     <div>
-      <div>
+      <div css={radioListStyle}>
         {renderColorOrNumberRadioButton(
           "blue",
           "🔷",
@@ -67,7 +80,7 @@ const ColorOrNumberRadioButtons: FunctionComponent<
           setSelectedNumberOrColor
         )}
       </div>
-      <div>
+      <div css={radioListStyle}>
         {renderColorOrNumberRadioButton(
           "one",
           "1️⃣",

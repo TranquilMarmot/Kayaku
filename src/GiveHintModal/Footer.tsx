@@ -10,14 +10,31 @@ interface FooterProps {
   onConfirmClick: () => void;
 }
 
+const footerStyle = css`
+  border-top: 2px solid grey;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const footerButtonStyle = css`
+  padding: 15px 20px;
+
+  width: 100px;
+`;
+
 const Footer: FunctionComponent<FooterProps> = ({
   onCloseClick,
   onConfirmClick
 }) => {
   return (
-    <div>
-      <Button onClick={onCloseClick}>Cancel</Button>
-      <Button onClick={onConfirmClick}>Apply</Button>
+    <div css={footerStyle}>
+      <Button css={footerButtonStyle} onClick={onCloseClick}>
+        Cancel
+      </Button>
+      <Button css={footerButtonStyle} onClick={onConfirmClick}>
+        Apply
+      </Button>
     </div>
   );
 };
