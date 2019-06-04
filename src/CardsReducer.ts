@@ -82,7 +82,11 @@ const giveHint = (state: Card[], action: GiveHintAction): Card[] => {
 };
 
 const playCard = (state: Card[], action: PlayCardAction): Card[] => {
-  return state;
+  const cardsMinusPlayed = state.filter(
+    (card, index) => index !== action.index
+  );
+  cardsMinusPlayed.push(createCard());
+  return cardsMinusPlayed;
 };
 
 const cardClicked = (state: Card[], action: CardClickedAction): Card[] => {
