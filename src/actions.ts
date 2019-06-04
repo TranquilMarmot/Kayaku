@@ -3,7 +3,7 @@ import { Card, Confidence } from "./types";
 export enum Actions {
   GiveHint = "GiveHint",
   PlayCard = "PlayCard",
-  CardClicked = "CardClicked"
+  EditCard = "EditCard"
 }
 
 interface Action {
@@ -39,14 +39,15 @@ export const PlayCard = (index: number) => ({
   index
 });
 
-export interface CardClickedAction extends Action {
+export interface EditCardAction extends Action {
   index: number;
   card: Card;
 }
 
-export const CardClicked = (index: number) => ({
-  type: Actions.CardClicked,
-  index
+export const EditCard = (index: number, card: Card) => ({
+  type: Actions.EditCard,
+  index,
+  card
 });
 
-export type ActionTypes = GiveHintAction | PlayCardAction | CardClickedAction;
+export type ActionTypes = GiveHintAction | PlayCardAction | EditCardAction;

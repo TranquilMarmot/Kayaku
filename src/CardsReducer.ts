@@ -1,5 +1,11 @@
 import { Card, Confidence } from "./types";
-import { Actions } from "./actions";
+import {
+  Actions,
+  ActionTypes,
+  GiveHintAction,
+  PlayCardAction,
+  EditCardAction
+} from "./actions";
 
 const createCard = (): Card => ({
   color: {
@@ -27,27 +33,6 @@ export const getInitialState = (numberOfCards: number): Card[] => {
 
   return cards;
 };
-
-interface Action {
-  type: string;
-}
-
-interface GiveHintAction extends Action {
-  indices: number[];
-  color?: string;
-  number?: string;
-}
-
-interface PlayCardAction extends Action {
-  index: number;
-}
-
-interface CardClickedAction extends Action {
-  index: number;
-  card: Card;
-}
-
-type ActionTypes = GiveHintAction | PlayCardAction | CardClickedAction;
 
 const giveHint = (state: Card[], action: GiveHintAction): Card[] => {
   const { indices, color, number } = action;
@@ -82,14 +67,14 @@ const giveHint = (state: Card[], action: GiveHintAction): Card[] => {
 };
 
 const playCard = (state: Card[], action: PlayCardAction): Card[] => {
-  const cardsMinusPlayed = state.filter(
-    (card, index) => index !== action.index
-  );
+  // filter out the card we just played
+  const cardsMinusPlayed = [...state];
+  cardsMinusPlayed.splice(action.index, 1);
   cardsMinusPlayed.push(createCard());
   return cardsMinusPlayed;
 };
 
-const cardClicked = (state: Card[], action: CardClickedAction): Card[] => {
+const editCard = (state: Card[], action: EditCardAction): Card[] => {
   return state;
 };
 
@@ -99,8 +84,8 @@ export default (state: Card[], action: ActionTypes): Card[] => {
       return giveHint(state, action as GiveHintAction);
     case Actions.PlayCard:
       return playCard(state, action as PlayCardAction);
-    case Actions.CardClicked:
-      return cardClicked(state, action as CardClickedAction);
+    case Actions.EditCard:
+      return editCard(state, action as EditCardAction);
     default:
       return state;
   }
