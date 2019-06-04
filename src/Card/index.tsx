@@ -47,6 +47,7 @@ const Card: FunctionComponent<CardProps> = ({ index }) => {
       {showingActions && (
         <CardActions
           index={index}
+          card={card}
           onCloseActions={() => setShowingActions(false)}
           dispatch={dispatch}
         />

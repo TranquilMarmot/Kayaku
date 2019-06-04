@@ -1,43 +1,15 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-
-import { FunctionComponent, useContext, useState } from "react";
+import React, { FunctionComponent, useContext, useState } from "react";
 
 import { CardsContext } from "../Hand";
 import { Confidence } from "../types";
 import { GiveHint, ActionTypes } from "../actions";
 
+import Modal from "../Modal";
 import CardSelection from "./CardSelection";
 import ColorOrNumberRadioButtons from "./ColorOrNumberRadioButtons";
 import Footer from "./Footer";
-
-interface GiveHintModalProps {
-  closeModal: () => void;
-}
-
-const baseModalBackground = css`
-  position: fixed; /* Stay in place */
-  z-index: 1000; /* Sit on top */
-  padding-top: 10px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-`;
-
-const baseModalContent = css`
-  margin: auto;
-  border: 1px solid #888;
-  width: 80%;
-  color: black;
-  background: linear-gradient(
-    315deg,
-    rgba(137, 196, 255, 1) 0%,
-    rgba(50, 255, 57, 1) 100%
-  );
-`;
 
 const hintSelectionStyle = css`
   display: flex;
@@ -101,6 +73,10 @@ const dispatchHint = (
   closeModal();
 };
 
+interface GiveHintModalProps {
+  closeModal: () => void;
+}
+
 const GiveHintModal: FunctionComponent<GiveHintModalProps> = ({
   closeModal
 }) => {
@@ -114,8 +90,8 @@ const GiveHintModal: FunctionComponent<GiveHintModalProps> = ({
   );
 
   return (
-    <div css={baseModalBackground}>
-      <div css={baseModalContent}>
+    <Modal>
+      <React.Fragment>
         <h1>Give Hint</h1>
         <div css={hintSelectionStyle}>
           <CardSelection
@@ -139,8 +115,8 @@ const GiveHintModal: FunctionComponent<GiveHintModalProps> = ({
             )
           }
         />
-      </div>
-    </div>
+      </React.Fragment>
+    </Modal>
   );
 };
 

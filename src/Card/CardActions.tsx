@@ -1,11 +1,14 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import Button from "../Button";
 import { ActionTypes, PlayCard } from "../actions";
+import EditCardModal from "./EditCardModal";
+import { Card } from "../types";
 
 interface CardActionsProps {
   index: number;
+  card: Card;
   onCloseActions: () => void;
   dispatch: (action: ActionTypes) => void;
 }
@@ -33,9 +36,12 @@ const onPlayCard = (
 
 const CardActions: FunctionComponent<CardActionsProps> = ({
   index,
+  card,
   onCloseActions,
   dispatch
 }) => {
+  const [showingEditModal, onChangeShowingEditModal] = useState(false);
+
   return (
     <div css={containerStyle}>
       <Button
@@ -44,12 +50,20 @@ const CardActions: FunctionComponent<CardActionsProps> = ({
       >
         Play
       </Button>
-      <Button css={buttonStyle} onClick={() => {}}>
+      <Button css={buttonStyle} onClick={() => onChangeShowingEditModal(true)}>
         Edit
       </Button>
       <Button css={buttonStyle} onClick={onCloseActions}>
         Cancel
       </Button>
+      {showingEditModal && (
+        <EditCardModal
+          index={index}
+          card={card}
+          onCloseEditCardModal={() => onChangeShowingEditModal(false)}
+          dispatch={dispatch}
+        />
+      )}
     </div>
   );
 };
