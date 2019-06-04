@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import React, { FunctionComponent } from "react";
-import { Card } from "../types";
+import { Card } from "../../types";
 import Confidence from "./Confidence";
 
 interface InfoProps {
@@ -12,6 +12,14 @@ interface InfoProps {
   row: number;
 }
 
+const infoStyle = (row: number, column: number) => css`
+  grid-row: ${row};
+  grid-column: ${column};
+  border-right: 1px solid black;
+  border-bottom: 1px solid gray;
+  border-top: 1px solid gray;
+`;
+
 const Info: FunctionComponent<InfoProps> = ({
   card,
   infoType,
@@ -21,28 +29,12 @@ const Info: FunctionComponent<InfoProps> = ({
 }) => {
   return (
     <React.Fragment>
-      <div
-        css={css`
-          grid-row: ${row};
-          grid-column: 1;
-          border-right: 1px solid black;
-          border-bottom: 1px solid gray;
-          border-top: 1px solid gray;
-        `}
-      >
+      <div css={infoStyle(row, 1)}>
         <span role="img" aria-label={`${infoKey}`}>
           {emoji}
         </span>
       </div>
-      <div
-        css={css`
-          grid-row: ${row};
-          grid-column: 2;
-          border-left: 1px solid black;
-          border-bottom: 1px solid gray;
-          border-top: 1px solid gray;
-        `}
-      >
+      <div css={infoStyle(row, 2)}>
         <Confidence confidence={card[infoType][infoKey]} />
       </div>
     </React.Fragment>

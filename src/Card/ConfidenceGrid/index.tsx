@@ -1,22 +1,31 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import React, { FunctionComponent } from "react";
-import { Card } from "../types";
+import { FunctionComponent } from "react";
+import { Card } from "../../types";
 import Info from "./Info";
 
 interface ConfidenceGridProps {
   card: Card;
 }
 
+const confidenceGridContainerStyle = css`
+  display: flex;
+  flex-direction: column;
+  height: 97%;
+  margin-top: 3%;
+`;
+
 const confidenceGridStyle = css`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  font-size: 20px;
+  flex: 1;
 `;
 
 const ConfidenceGrid: FunctionComponent<ConfidenceGridProps> = ({ card }) => {
   return (
-    <React.Fragment>
+    <div css={confidenceGridContainerStyle}>
       <div css={confidenceGridStyle}>
         <Info card={card} infoType="color" infoKey="blue" emoji="🔷" row={1} />
         <Info
@@ -43,7 +52,7 @@ const ConfidenceGrid: FunctionComponent<ConfidenceGridProps> = ({ card }) => {
         <Info card={card} infoType="number" infoKey="four" emoji="4️⃣" row={4} />
         <Info card={card} infoType="number" infoKey="five" emoji="5️⃣" row={5} />
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 

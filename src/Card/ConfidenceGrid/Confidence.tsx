@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { FunctionComponent } from "react";
-import { Confidence as ConfidenceType } from "../types";
+import { Confidence as ConfidenceType } from "../../types";
 
 interface ConfidenceProps {
   confidence: ConfidenceType;

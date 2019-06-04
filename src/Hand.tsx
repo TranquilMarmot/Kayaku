@@ -12,7 +12,7 @@ import Card from "./Card";
 import { ActionTypes } from "./actions";
 import { Card as CardType } from "./types";
 import GiveHintModal from "./GiveHintModal";
-import Button from "./Button";
+import Footer from "./Footer";
 
 // this initial state and context are created on first render
 let initialState: CardType[];
@@ -44,19 +44,22 @@ const Hand: FunctionComponent<HandProps> = ({ numberOfCards }) => {
   const [showingGiveHintModal, setShowingGiveHintModal] = useState(false);
 
   const cardsContainerStyle = css`
+    grid-row: 1;
     display: grid;
     grid-template-columns: repeat(${numberOfCards}, 1fr);
   `;
 
+  const mainContainerStyle = css`
+    display: grid;
+    grid-template-rows: 5fr 1fr;
+    height: 100%;
+  `;
+
   return (
-    <div>
+    <div css={mainContainerStyle}>
       <CardsContext.Provider value={useReducer(CardsReducer, initialState)}>
         <div css={cardsContainerStyle}>{renderCards(numberOfCards)}</div>
-        <div>
-          <Button onClick={() => setShowingGiveHintModal(true)}>
-            Give Hint
-          </Button>
-        </div>
+        <Footer setShowingGiveHintModal={setShowingGiveHintModal} />
         {showingGiveHintModal && (
           <GiveHintModal closeModal={() => setShowingGiveHintModal(false)} />
         )}

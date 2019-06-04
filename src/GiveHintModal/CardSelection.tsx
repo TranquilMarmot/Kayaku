@@ -15,7 +15,12 @@ const selectCardChecboxLabelStyle = css`
   border-radius: 5px;
   border: 1px solid black;
   margin-bottom: 5px;
-  background-color: white;
+  background: radial-gradient(
+    circle,
+    rgb(63, 236, 251) 0%,
+    rgb(70, 88, 252) 95%,
+    rgb(174, 70, 252) 100%
+  );
 
   &:hover {
     cursor: pointer;
