@@ -21,4 +21,5 @@ export interface Card {
     five: Confidence;
     [key: string]: Confidence;
   };
+  [key: string]: object;
 }
