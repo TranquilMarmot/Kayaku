@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import Button from "./Button";
+import OptionsModal from "./OptionsModal";
 
 interface FooterProps {
   setShowingGiveHintModal: (showingGiveHintModal: boolean) => void;
@@ -23,14 +24,21 @@ const buttonStyle = css`
 const Footer: FunctionComponent<FooterProps> = ({
   setShowingGiveHintModal
 }) => {
+  const [showingOptionsModal, setShowingOptionsModal] = useState(false);
   return (
     <div css={containerStyle}>
-      <Button css={buttonStyle} onClick={() => {}}>
+      <Button css={buttonStyle} onClick={() => setShowingOptionsModal(true)}>
         Options
       </Button>
       <Button css={buttonStyle} onClick={() => setShowingGiveHintModal(true)}>
         Give Hint
       </Button>
+
+      {showingOptionsModal && (
+        <OptionsModal
+          onCloseOptionsModal={() => setShowingOptionsModal(false)}
+        />
+      )}
     </div>
   );
 };
