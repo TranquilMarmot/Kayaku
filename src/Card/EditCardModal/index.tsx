@@ -2,28 +2,42 @@
 import { jsx, css } from "@emotion/core";
 import React, { FunctionComponent, useState } from "react";
 import Modal from "../../Modal";
-import { Card, Confidence } from "../../types";
-import { ActionTypes } from "../../actions";
+import Footer from "../../Modal/Footer";
+import { Card } from "../../types";
+import { ActionTypes, EditCard } from "../../actions";
 import ConfidenceDropdown from "./ConfidenceDropdown";
-import Button from "../../Button";
 
 const dropdownContainerStyle = css`
   display: flex;
   justify-content: center;
 `;
 
+const onSaveCard = (
+  card: Card,
+  index: number,
+  onCloseEditCardModal: () => void,
+  dispatch: (action: ActionTypes) => void,
+  onCloseActions: () => void
+) => {
+  dispatch(EditCard(index, card));
+  onCloseEditCardModal();
+  onCloseActions();
+};
+
 interface EditCardModalProps {
   index: number;
   card: Card;
   onCloseEditCardModal: () => void;
   dispatch: (action: ActionTypes) => void;
+  onCloseActions: () => void;
 }
 
 const EditCardModal: FunctionComponent<EditCardModalProps> = ({
   index,
   card,
   onCloseEditCardModal,
-  dispatch
+  dispatch,
+  onCloseActions
 }) => {
   const [editedCard, onEditedCardChange] = useState(card);
 
@@ -105,8 +119,18 @@ const EditCardModal: FunctionComponent<EditCardModalProps> = ({
             emoji="5️⃣"
           />
         </div>
-        <Button onClick={onCloseEditCardModal}>Cancel</Button>
-        <Button onClick={onCloseEditCardModal}>Save</Button>
+        <Footer
+          onCloseClick={onCloseEditCardModal}
+          onConfirmClick={() =>
+            onSaveCard(
+              editedCard,
+              index,
+              onCloseEditCardModal,
+              dispatch,
+              onCloseActions
+            )
+          }
+        />
       </React.Fragment>
     </Modal>
   );

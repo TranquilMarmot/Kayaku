@@ -60,6 +60,7 @@ const CardActions: FunctionComponent<CardActionsProps> = ({
         <EditCardModal
           index={index}
           card={card}
+          onCloseActions={onCloseActions}
           onCloseEditCardModal={() => onChangeShowingEditModal(false)}
           dispatch={dispatch}
         />

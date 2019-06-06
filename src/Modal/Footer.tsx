@@ -19,7 +19,6 @@ const footerStyle = css`
 
 const footerButtonStyle = css`
   padding: 15px 20px;
-
   width: 100px;
 `;
 

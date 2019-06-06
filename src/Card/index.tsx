@@ -41,7 +41,7 @@ const Card: FunctionComponent<CardProps> = ({ index }) => {
     <div
       role="button"
       css={cardStyle}
-      onClick={e => (!showingActions ? setShowingActions(true) : null)}
+      onClick={() => (!showingActions ? setShowingActions(true) : null)}
     >
       {!showingActions && <ConfidenceGrid card={card} />}
       {showingActions && (

@@ -26,8 +26,11 @@ interface ConfidenceDropdownProps {
   emoji: string;
 }
 
-const containerStyle = css`
-  font-size: 25px;
+const emojiStyle = css`
+  font-size: 30px;
+  padding: 10px;
+  min-width: 50px;
+  display: inline-block;
 `;
 
 const ConfidenceDropdown: FunctionComponent<ConfidenceDropdownProps> = ({
@@ -40,9 +43,9 @@ const ConfidenceDropdown: FunctionComponent<ConfidenceDropdownProps> = ({
   const dropdownId = `dropdown-${dropdownType}-${dropdownKey}`;
   const currentConfidence = card[dropdownType][dropdownKey];
   return (
-    <div css={containerStyle}>
+    <div>
       <label htmlFor={dropdownId}>
-        <span role="img" aria-label={`${dropdownKey}`}>
+        <span css={emojiStyle} role="img" aria-label={`${dropdownKey}`}>
           {emoji}
         </span>
       </label>
@@ -54,24 +57,14 @@ const ConfidenceDropdown: FunctionComponent<ConfidenceDropdownProps> = ({
               .value as Confidence)
           )
         }
+        defaultValue={currentConfidence}
       >
-        <option
-          value={Confidence.Unknown}
-          selected={currentConfidence === Confidence.Unknown}
-        >
-          {" "}
+        <option value={Confidence.Unknown}> </option>
+        <option value={Confidence.Positive}>
+          {/* eslint-ignore jsx-a11y/accessible-emoji */}✔
         </option>
-        <option
-          value={Confidence.Positive}
-          selected={currentConfidence === Confidence.Positive}
-        >
-          ✔
-        </option>
-        <option
-          value={Confidence.Negative}
-          selected={currentConfidence === Confidence.Negative}
-        >
-          ❌
+        <option value={Confidence.Negative}>
+          {/* eslint-ignore jsx-a11y/accessible-emoji */}❌
         </option>
       </select>
     </div>

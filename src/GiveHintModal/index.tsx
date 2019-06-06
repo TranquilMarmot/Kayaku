@@ -7,9 +7,9 @@ import { Confidence } from "../types";
 import { GiveHint, ActionTypes } from "../actions";
 
 import Modal from "../Modal";
+import Footer from "../Modal/Footer";
 import CardSelection from "./CardSelection";
 import ColorOrNumberRadioButtons from "./ColorOrNumberRadioButtons";
-import Footer from "./Footer";
 
 const hintSelectionStyle = css`
   display: flex;

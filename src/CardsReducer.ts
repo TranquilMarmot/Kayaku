@@ -75,7 +75,13 @@ const playCard = (state: Card[], action: PlayCardAction): Card[] => {
 };
 
 const editCard = (state: Card[], action: EditCardAction): Card[] => {
-  return state;
+  return state.map((card, index) => {
+    if (index === action.index) {
+      return action.card;
+    }
+
+    return card;
+  });
 };
 
 export default (state: Card[], action: ActionTypes): Card[] => {

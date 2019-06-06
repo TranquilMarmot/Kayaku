@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import { FunctionComponent, useContext, useState } from "react";
+import { FunctionComponent } from "react";
 
 const baseModalBackground = css`
   position: fixed; /* Stay in place */
