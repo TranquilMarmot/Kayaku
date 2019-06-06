@@ -30,6 +30,10 @@ const numberOfCardsButtonStyle = css`
   padding: 25px;
 `;
 
+const titleStyle = css`
+  margin: 0;
+`;
+
 const App: FunctionComponent = () => {
   const [numberOfCards, setNumberOfCards] = useState(-1);
 
@@ -38,7 +42,8 @@ const App: FunctionComponent = () => {
       {/* Haven't select the number of cards yet, show buttons to do so */}
       {numberOfCards < 0 && (
         <div>
-          <div>How many cards?</div>
+          <h1 css={titleStyle}>火薬 - Kayaku</h1>
+          <h2>How many cards?</h2>
           <div css={numberOfCardsContainerStyle}>
             <Button
               css={numberOfCardsButtonStyle}
