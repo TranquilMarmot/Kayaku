@@ -26,12 +26,13 @@ const baseModalContent = css`
   );
 `;
 
-const Modal: FunctionComponent = ({ children }) => {
-  return (
-    <div css={baseModalBackground}>
-      <div css={baseModalContent}>{children}</div>
-    </div>
-  );
-};
+/**
+ * Generic reusable modal component
+ */
+const Modal: FunctionComponent = ({ children }) => (
+  <div css={baseModalBackground}>
+    <div css={baseModalContent}>{children}</div>
+  </div>
+);
 
 export default Modal;

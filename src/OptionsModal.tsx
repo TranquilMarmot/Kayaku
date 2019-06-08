@@ -9,6 +9,9 @@ interface OptionsModalProps {
   onCloseOptionsModal: () => void;
 }
 
+/**
+ * Modal for varioud options
+ */
 const OptionsModal: FunctionComponent<OptionsModalProps> = ({
   onCloseOptionsModal
 }) => {

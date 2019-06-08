@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { FunctionComponent, useContext, useState } from "react";
+
 import { CardsContext } from "../Hand";
 import { Card as CardType } from "../types";
+
 import ConfidenceGrid from "./ConfidenceGrid";
 import CardActions from "./CardActions";
 
@@ -31,6 +33,10 @@ const cardStyle = css`
   }
 `;
 
+/**
+ * Displays a card along with its info.
+ * If clicked, the card shows options to play or edit it.
+ */
 const Card: FunctionComponent<CardProps> = ({ index }) => {
   const [cards, dispatch] = useContext(CardsContext);
   const [showingActions, setShowingActions] = useState(false);

@@ -1,7 +1,9 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import React, { FunctionComponent } from "react";
+
 import { Card } from "../../types";
+
 import Confidence from "./Confidence";
 
 interface InfoProps {
@@ -20,25 +22,26 @@ const infoStyle = (row: number, column: number) => css`
   border-top: 1px solid gray;
 `;
 
+/**
+ * Renders the confidence level for the given card and type
+ */
 const Info: FunctionComponent<InfoProps> = ({
   card,
   infoType,
   infoKey,
   emoji,
   row
-}) => {
-  return (
-    <React.Fragment>
-      <div css={infoStyle(row, 1)}>
-        <span role="img" aria-label={`${infoKey}`}>
-          {emoji}
-        </span>
-      </div>
-      <div css={infoStyle(row, 2)}>
-        <Confidence confidence={card[infoType][infoKey]} />
-      </div>
-    </React.Fragment>
-  );
-};
+}) => (
+  <React.Fragment>
+    <div css={infoStyle(row, 1)}>
+      <span role="img" aria-label={`${infoKey}`}>
+        {emoji}
+      </span>
+    </div>
+    <div css={infoStyle(row, 2)}>
+      <Confidence confidence={card[infoType][infoKey]} />
+    </div>
+  </React.Fragment>
+);
 
 export default Info;

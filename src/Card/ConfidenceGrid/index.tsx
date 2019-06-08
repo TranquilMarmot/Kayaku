@@ -1,12 +1,10 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { FunctionComponent } from "react";
-import { Card } from "../../types";
-import Info from "./Info";
 
-interface ConfidenceGridProps {
-  card: Card;
-}
+import { Card } from "../../types";
+
+import Info from "./Info";
 
 const confidenceGridContainerStyle = css`
   display: flex;
@@ -23,6 +21,13 @@ const confidenceGridStyle = css`
   flex: 1;
 `;
 
+interface ConfidenceGridProps {
+  card: Card;
+}
+
+/**
+ * A grid that displays the confidence level for every color and number of a card.
+ */
 const ConfidenceGrid: FunctionComponent<ConfidenceGridProps> = ({ card }) => {
   return (
     <div css={confidenceGridContainerStyle}>

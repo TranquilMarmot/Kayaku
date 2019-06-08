@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { FunctionComponent, Dispatch, SetStateAction } from "react";
+
 import { Card, Confidence } from "../../types";
 
 const setCardValue = (
@@ -18,6 +19,13 @@ const setCardValue = (
   };
 };
 
+const emojiStyle = css`
+  font-size: 30px;
+  padding: 10px;
+  min-width: 50px;
+  display: inline-block;
+`;
+
 interface ConfidenceDropdownProps {
   onChange: Dispatch<SetStateAction<Card>>;
   card: Card;
@@ -26,13 +34,9 @@ interface ConfidenceDropdownProps {
   emoji: string;
 }
 
-const emojiStyle = css`
-  font-size: 30px;
-  padding: 10px;
-  min-width: 50px;
-  display: inline-block;
-`;
-
+/**
+ * Render a dropdown to choose the confidence level of a color or number for a card
+ */
 const ConfidenceDropdown: FunctionComponent<ConfidenceDropdownProps> = ({
   onChange,
   card,
@@ -41,7 +45,9 @@ const ConfidenceDropdown: FunctionComponent<ConfidenceDropdownProps> = ({
   emoji
 }) => {
   const dropdownId = `dropdown-${dropdownType}-${dropdownKey}`;
+
   const currentConfidence = card[dropdownType][dropdownKey];
+
   return (
     <div>
       <label htmlFor={dropdownId}>

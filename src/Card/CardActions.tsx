@@ -1,10 +1,27 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { FunctionComponent, useState } from "react";
+
 import Button from "../Button";
 import { ActionTypes, PlayCard } from "../actions";
-import EditCardModal from "./EditCardModal";
 import { Card } from "../types";
+
+import EditCardModal from "./EditCardModal";
+
+/**
+ * Called when a card is played. Dispatches an action to the reducer and closes the actions on the card.
+ * @param index Index of card to play
+ * @param onCloseActions Function to call to close the actions
+ * @param dispatch Function to dispatch to reducer
+ */
+const onPlayCard = (
+  index: number,
+  onCloseActions: () => void,
+  dispatch: (action: ActionTypes) => void
+) => {
+  dispatch(PlayCard(index));
+  onCloseActions();
+};
 
 interface CardActionsProps {
   index: number;
@@ -25,15 +42,9 @@ const buttonStyle = css`
   margin: 15px;
 `;
 
-const onPlayCard = (
-  index: number,
-  onCloseActions: () => void,
-  dispatch: (action: ActionTypes) => void
-) => {
-  dispatch(PlayCard(index));
-  onCloseActions();
-};
-
+/**
+ * Actions to take on a card. Shown when the card is clicked.
+ */
 const CardActions: FunctionComponent<CardActionsProps> = ({
   index,
   card,

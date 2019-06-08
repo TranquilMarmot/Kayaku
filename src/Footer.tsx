@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { FunctionComponent, useState } from "react";
+
 import Button from "./Button";
 import OptionsModal from "./OptionsModal";
 
@@ -21,6 +22,7 @@ const buttonStyle = css`
   width: 25%;
 `;
 
+/** The main footer for the app */
 const Footer: FunctionComponent<FooterProps> = ({
   setShowingGiveHintModal
 }) => {

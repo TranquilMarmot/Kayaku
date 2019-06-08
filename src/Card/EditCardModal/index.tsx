@@ -1,16 +1,13 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import React, { FunctionComponent, useState } from "react";
+
 import Modal from "../../Modal";
 import Footer from "../../Modal/Footer";
 import { Card } from "../../types";
 import { ActionTypes, EditCard } from "../../actions";
-import ConfidenceDropdown from "./ConfidenceDropdown";
 
-const dropdownContainerStyle = css`
-  display: flex;
-  justify-content: center;
-`;
+import ConfidenceDropdown from "./ConfidenceDropdown";
 
 const onSaveCard = (
   card: Card,
@@ -24,6 +21,11 @@ const onSaveCard = (
   onCloseActions();
 };
 
+const dropdownContainerStyle = css`
+  display: flex;
+  justify-content: center;
+`;
+
 interface EditCardModalProps {
   index: number;
   card: Card;
@@ -32,6 +34,9 @@ interface EditCardModalProps {
   onCloseActions: () => void;
 }
 
+/**
+ * Renders a modal to edit the current confidence values of a card
+ */
 const EditCardModal: FunctionComponent<EditCardModalProps> = ({
   index,
   card,

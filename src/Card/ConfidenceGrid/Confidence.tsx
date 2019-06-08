@@ -1,12 +1,16 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { FunctionComponent } from "react";
+
 import { Confidence as ConfidenceType } from "../../types";
 
 interface ConfidenceProps {
   confidence: ConfidenceType;
 }
 
+/**
+ * Renders the given confidence
+ */
 const Confidence: FunctionComponent<ConfidenceProps> = ({ confidence }) => {
   switch (confidence) {
     case ConfidenceType.Positive:

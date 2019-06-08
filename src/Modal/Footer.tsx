@@ -1,14 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-
 import { FunctionComponent } from "react";
 
 import Button from "../Button";
-
-interface FooterProps {
-  onCloseClick: () => void;
-  onConfirmClick: () => void;
-}
 
 const footerStyle = css`
   border-top: 2px solid grey;
@@ -22,20 +16,26 @@ const footerButtonStyle = css`
   width: 100px;
 `;
 
+interface FooterProps {
+  onCloseClick: () => void;
+  onConfirmClick: () => void;
+}
+
+/**
+ * Footer for a Modal that has Cancel and Apply buttons
+ */
 const Footer: FunctionComponent<FooterProps> = ({
   onCloseClick,
   onConfirmClick
-}) => {
-  return (
-    <div css={footerStyle}>
-      <Button css={footerButtonStyle} onClick={onCloseClick}>
-        Cancel
-      </Button>
-      <Button css={footerButtonStyle} onClick={onConfirmClick}>
-        Apply
-      </Button>
-    </div>
-  );
-};
+}) => (
+  <div css={footerStyle}>
+    <Button css={footerButtonStyle} onClick={onCloseClick}>
+      Cancel
+    </Button>
+    <Button css={footerButtonStyle} onClick={onConfirmClick}>
+      Apply
+    </Button>
+  </div>
+);
 
 export default Footer;

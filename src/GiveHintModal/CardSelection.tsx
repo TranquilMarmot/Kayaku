@@ -10,6 +10,29 @@ import {
 
 import { Card } from "../types";
 
+/**
+ * Called when a checkbox changes, updates the boolean array of selected cards
+ * @param e Checkbox change event
+ * @param selectedCards Boolean array of selected cards
+ * @param setSelectedCards Function to set array of selected cards
+ */
+const onCheckboxChange = (
+  e: ChangeEvent<HTMLInputElement>,
+  selectedCards: boolean[],
+  setSelectedCards: Dispatch<SetStateAction<boolean[]>>
+) => {
+  setSelectedCards(
+    selectedCards.map((value, index) => {
+      // each checkbox has its index as a data attribute
+      if (`${index}` === e.target.dataset.index) {
+        return e.target.checked;
+      } else {
+        return value;
+      }
+    })
+  );
+};
+
 const selectCardChecboxLabelStyle = css`
   padding: 25px 20px;
   border-radius: 5px;
@@ -39,29 +62,13 @@ interface CardSelectionProps {
   setSelectedCards: Dispatch<SetStateAction<boolean[]>>;
 }
 
-const onCheckboxChange = (
-  e: ChangeEvent<HTMLInputElement>,
-  selectedCards: boolean[],
-  setSelectedCards: Dispatch<SetStateAction<boolean[]>>
-) => {
-  setSelectedCards(
-    selectedCards.map((value, index) => {
-      if (`${index}` === e.target.dataset.index) {
-        return e.target.checked;
-      } else {
-        return value;
-      }
-    })
-  );
-};
-
 const CardSelection: FunctionComponent<CardSelectionProps> = ({
   cards,
   selectedCards,
   setSelectedCards
 }) => {
+  // create a checkbox for every card
   const selectCardCheckboxes = [];
-
   for (let i = 0; i < cards.length; i++) {
     selectCardCheckboxes.push(
       <div
@@ -70,7 +77,8 @@ const CardSelection: FunctionComponent<CardSelectionProps> = ({
         css={selectCardCheckboxContainerStyle}
       >
         <label css={selectCardChecboxLabelStyle} htmlFor={`select-card-${i}`}>
-          {i + 1}
+          {// +1 so that they render as 1,2,3,etc.
+          i + 1}
         </label>
         <input
           id={`select-card-${i}`}

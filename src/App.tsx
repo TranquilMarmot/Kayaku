@@ -34,6 +34,10 @@ const titleStyle = css`
   margin: 0;
 `;
 
+/**
+ * Renders the current hand if the player has selected the number of cards,
+ * or buttons to select the number of cards if they haven't
+ */
 const App: FunctionComponent = () => {
   const [numberOfCards, setNumberOfCards] = useState(-1);
 
@@ -42,8 +46,9 @@ const App: FunctionComponent = () => {
       {/* Haven't select the number of cards yet, show buttons to do so */}
       {numberOfCards < 0 && (
         <div>
-          <h1 css={titleStyle}>火薬 - Kayaku</h1>
-          <h2>How many cards?</h2>
+          <h1 css={titleStyle}>火薬</h1>
+          <h2>Kayaku</h2>
+          <h3>How many cards?</h3>
           <div css={numberOfCardsContainerStyle}>
             <Button
               css={numberOfCardsButtonStyle}

@@ -29,6 +29,9 @@ const buttonStyle = css`
   }
 `;
 
+/**
+ * Reusable button component with fancy rainbow effect
+ */
 const Button: FunctionComponent<ButtonProps> = props => {
   const { children } = props;
   return (

@@ -1,9 +1,11 @@
+/** Confidenve level for a color or number */
 export enum Confidence {
   Unknown = "unknown",
   Positive = "positive",
   Negative = "negative"
 }
 
+/** Represents a card in the player's hand, which has confidence levels for color and number */
 export interface Card {
   color: {
     blue: Confidence;
