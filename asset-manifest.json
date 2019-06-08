@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/kayaku/static/css/main.b2af7f72.chunk.css",
+    "main.js": "/kayaku/static/js/main.27714c53.chunk.js",
+    "main.js.map": "/kayaku/static/js/main.27714c53.chunk.js.map",
+    "runtime~main.js": "/kayaku/static/js/runtime~main.fbe40461.js",
+    "runtime~main.js.map": "/kayaku/static/js/runtime~main.fbe40461.js.map",
+    "static/js/2.f28d18c5.chunk.js": "/kayaku/static/js/2.f28d18c5.chunk.js",
+    "static/js/2.f28d18c5.chunk.js.map": "/kayaku/static/js/2.f28d18c5.chunk.js.map",
+    "index.html": "/kayaku/index.html",
+    "precache-manifest.ba9486bf5cdb592822932485fc0996c7.js": "/kayaku/precache-manifest.ba9486bf5cdb592822932485fc0996c7.js",
+    "service-worker.js": "/kayaku/service-worker.js",
+    "static/css/main.b2af7f72.chunk.css.map": "/kayaku/static/css/main.b2af7f72.chunk.css.map"
+  }
+}

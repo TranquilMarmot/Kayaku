@@ -1,0 +1,21 @@
+{
+  "short_name": "火薬",
+  "name": "火薬 - Kayaku",
+  "icons": [
+    {
+      "src": "/favicon/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon/android-chrome-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
