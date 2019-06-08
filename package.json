@@ -2,7 +2,7 @@
   "name": "kayaku",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://tranquilmarmot.github.io/kayaku",
+  "homepage": "https://tranquilmarmot.github.io/Kayaku/",
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "@types/jest": "24.0.13",
