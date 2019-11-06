@@ -4,7 +4,8 @@ import { Card } from "./types";
 export enum Actions {
   GiveHint = "GiveHint",
   PlayCard = "PlayCard",
-  EditCard = "EditCard"
+  EditCard = "EditCard",
+  MoveCard = "MoveCard"
 }
 
 /** Base Action interface that all Actions extend */
@@ -51,6 +52,29 @@ export const PlayCard = (index: number) => ({
   index
 });
 
+/** Possible directions to move a card */
+export enum MoveCardDirection {
+  LEFT,
+  RIGHT
+}
+
+/** Move a card left or right in the hand */
+export interface MoveCardAction extends Action {
+  index: number;
+  direction: MoveCardDirection;
+}
+
+/**
+ * Move a card left or right in the hand
+ * @param index Index of card to move
+ * @param direction Direction to move card in
+ */
+export const MoveCard = (index: number, direction: MoveCardDirection) => ({
+  type: Actions.MoveCard,
+  index,
+  direction
+});
+
 /** Edit a card at a specific index */
 export interface EditCardAction extends Action {
   index: number;
@@ -69,4 +93,8 @@ export const EditCard = (index: number, card: Card) => ({
 });
 
 /** All action types */
-export type ActionTypes = GiveHintAction | PlayCardAction | EditCardAction;
+export type ActionTypes =
+  | GiveHintAction
+  | PlayCardAction
+  | EditCardAction
+  | MoveCardAction;

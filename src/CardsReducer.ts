@@ -4,7 +4,9 @@ import {
   ActionTypes,
   GiveHintAction,
   PlayCardAction,
-  EditCardAction
+  EditCardAction,
+  MoveCardAction,
+  MoveCardDirection
 } from "./actions";
 
 /** Creates a card with empty (unknown) confidence for everything */
@@ -102,6 +104,38 @@ const playCard = (hand: Card[], { index }: PlayCardAction): Card[] => {
 };
 
 /**
+ * Moves a card left or right in the player's hand
+ * @param hand Player's current hand
+ * @param action Action containing which direction to move a card
+ */
+const moveCard = (
+  hand: Card[],
+  { index, direction }: MoveCardAction
+): Card[] => {
+  let destinationIndex =
+    direction === MoveCardDirection.LEFT ? index - 1 : index + 1;
+
+  // rotate around the start/end of the hand
+  if (destinationIndex === hand.length) {
+    destinationIndex = 0;
+  } else if (destinationIndex === -1) {
+    destinationIndex = hand.length - 1;
+  }
+
+  // doing this the cheap and dirty way since this is a small array and
+  // algorithms just make this way too complex
+  const clone = [...hand];
+
+  const destinationCard = { ...clone[destinationIndex] };
+  const thisCard = { ...clone[index] };
+
+  clone[index] = destinationCard;
+  clone[destinationIndex] = thisCard;
+
+  return clone;
+};
+
+/**
  * Edits (replaces) a card in the player's hand
  * @param hand Player's current hand
  * @param action Action containing index of card to edit
@@ -121,6 +155,8 @@ export default (state: Card[], action: ActionTypes): Card[] => {
       return giveHint(state, action as GiveHintAction);
     case Actions.PlayCard:
       return playCard(state, action as PlayCardAction);
+    case Actions.MoveCard:
+      return moveCard(state, action as MoveCardAction);
     case Actions.EditCard:
       return editCard(state, action as EditCardAction);
     default:

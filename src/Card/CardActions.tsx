@@ -3,7 +3,7 @@ import { jsx, css } from "@emotion/core";
 import { FunctionComponent, useState } from "react";
 
 import Button from "../Button";
-import { ActionTypes, PlayCard } from "../actions";
+import { ActionTypes, PlayCard, MoveCard, MoveCardDirection } from "../actions";
 import { Card } from "../types";
 
 import EditCardModal from "./EditCardModal";
@@ -20,6 +20,17 @@ const onPlayCard = (
   dispatch: (action: ActionTypes) => void
 ) => {
   dispatch(PlayCard(index));
+  onCloseActions();
+};
+
+const onMoveCard = (
+  index: number,
+  direction: MoveCardDirection,
+  onCloseActions: () => void,
+
+  dispatch: (action: ActionTypes) => void
+) => {
+  dispatch(MoveCard(index, direction));
   onCloseActions();
 };
 
@@ -40,6 +51,10 @@ const containerStyle = css`
 const buttonStyle = css`
   flex: 1;
   margin: 15px;
+`;
+
+const arrowContainerStyle = css`
+  display: flex;
 `;
 
 /**
@@ -67,6 +82,24 @@ const CardActions: FunctionComponent<CardActionsProps> = ({
       <Button css={buttonStyle} onClick={onCloseActions}>
         Cancel
       </Button>
+      <div css={arrowContainerStyle}>
+        <Button
+          css={buttonStyle}
+          onClick={() =>
+            onMoveCard(index, MoveCardDirection.LEFT, onCloseActions, dispatch)
+          }
+        >
+          ⬅
+        </Button>
+        <Button
+          css={buttonStyle}
+          onClick={() =>
+            onMoveCard(index, MoveCardDirection.RIGHT, onCloseActions, dispatch)
+          }
+        >
+          ➡
+        </Button>
+      </div>
       {showingEditModal && (
         <EditCardModal
           index={index}
