@@ -149,7 +149,12 @@ const editCard = (hand: Card[], action: EditCardAction): Card[] =>
     return card;
   });
 
-export default (state: Card[], action: ActionTypes): Card[] => {
+/**
+ * Actual reducer
+ * @param state State to reduce
+ * @param action Action to reduce with
+ */
+const reducer = (state: Card[], action: ActionTypes): Card[] => {
   switch (action.type) {
     case Actions.GiveHint:
       return giveHint(state, action as GiveHintAction);
@@ -162,4 +167,18 @@ export default (state: Card[], action: ActionTypes): Card[] => {
     default:
       return state;
   }
+};
+
+/**
+ * Applies the given action to the given state and returns the new state.
+ *
+ * Also saves the current state as the "currentGame" item in localStorage.
+ * This is so if the app is closed, it will re-open with the most recent state.
+ */
+export default (state: Card[], action: ActionTypes): Card[] => {
+  const newState = reducer(state, action);
+
+  localStorage.setItem("currentGame", JSON.stringify(newState));
+
+  return newState;
 };

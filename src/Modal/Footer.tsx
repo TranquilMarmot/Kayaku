@@ -17,8 +17,11 @@ const footerButtonStyle = css`
 `;
 
 interface FooterProps {
-  onCloseClick: () => void;
-  onConfirmClick: () => void;
+  /** Function to call when close button is clicked (should close the modal...) If this is not passed in, the close button will not be shown. */
+  onCloseClick?: () => void;
+
+  /** Function to call when confirming the modal. If this is not passed in, the confirm button will not be shown. */
+  onConfirmClick?: () => void;
 }
 
 /**
@@ -29,12 +32,16 @@ const Footer: FunctionComponent<FooterProps> = ({
   onConfirmClick
 }) => (
   <div css={footerStyle}>
-    <Button css={footerButtonStyle} onClick={onCloseClick}>
-      Cancel
-    </Button>
-    <Button css={footerButtonStyle} onClick={onConfirmClick}>
-      Apply
-    </Button>
+    {onCloseClick && (
+      <Button css={footerButtonStyle} onClick={onCloseClick}>
+        Cancel
+      </Button>
+    )}
+    {onConfirmClick && (
+      <Button css={footerButtonStyle} onClick={onConfirmClick}>
+        Apply
+      </Button>
+    )}
   </div>
 );
 

@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState, useEffect } from "react";
 
 import Hand from "./Hand";
-import Button from "./Button";
+import { Card as CardType } from "./types";
+import MainMenu from "./MainMenu";
 
 const mainContainerStyle = css`
   text-align: center;
@@ -17,57 +18,35 @@ const mainContainerStyle = css`
   );
 `;
 
-const numberOfCardsContainerStyle = css`
-  display: flex;
-  justify-content: space-around;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 15%;
-`;
-
-const numberOfCardsButtonStyle = css`
-  padding: 25px;
-`;
-
-const titleStyle = css`
-  margin: 0;
-`;
-
 /**
  * Renders the current hand if the player has selected the number of cards,
  * or buttons to select the number of cards if they haven't
  */
 const App: FunctionComponent = () => {
-  const [numberOfCards, setNumberOfCards] = useState(-1);
+  const [hand, setHand] = useState(null as CardType[] | null);
+
+  useEffect(() => {
+    // see if we have a current game in local storage; if we do, set the hand to it
+    const currentGame = localStorage.getItem("currentGame");
+    if (currentGame) {
+      setHand(JSON.parse(currentGame) as CardType[]);
+    }
+  }, []);
+
+  // function that can be called to wipe out the state of the game and go back to the main menu
+  const clearHand = () => {
+    setHand(null);
+    localStorage.removeItem("currentGame");
+  };
 
   return (
     <div css={mainContainerStyle}>
-      {/* Haven't select the number of cards yet, show buttons to do so */}
-      {numberOfCards < 0 && (
-        <div>
-          <h1 css={titleStyle}>火薬</h1>
-          <h2>Kayaku</h2>
-          <h3>How many cards?</h3>
-          <div css={numberOfCardsContainerStyle}>
-            <Button
-              css={numberOfCardsButtonStyle}
-              onClick={() => setNumberOfCards(4)}
-            >
-              4
-            </Button>
-            <Button
-              css={numberOfCardsButtonStyle}
-              onClick={() => setNumberOfCards(5)}
-            >
-              5
-            </Button>
-          </div>
-        </div>
+      {/* If we have a hand, show it. Otherwise, show the main menu. */}
+      {hand ? (
+        <Hand initialState={hand} clearHand={clearHand} />
+      ) : (
+        <MainMenu setHand={setHand} />
       )}
-
-      {/* Have selected the number of cards, show the hand */}
-      {numberOfCards > 0 && <Hand numberOfCards={numberOfCards} />}
     </div>
   );
 };

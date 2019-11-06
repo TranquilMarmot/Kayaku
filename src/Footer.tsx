@@ -5,10 +5,6 @@ import { FunctionComponent, useState } from "react";
 import Button from "./Button";
 import OptionsModal from "./OptionsModal";
 
-interface FooterProps {
-  setShowingGiveHintModal: (showingGiveHintModal: boolean) => void;
-}
-
 const containerStyle = css`
   grid-row: 2;
   display: flex;
@@ -22,9 +18,18 @@ const buttonStyle = css`
   width: 25%;
 `;
 
+interface FooterProps {
+  /** Function to call to set whether the give him modal is currently being shown */
+  setShowingGiveHintModal: (showingGiveHintModal: boolean) => void;
+
+  /** Function that can be called to wipe out the state of the game and go back to the main menu **/
+  clearHand: () => void;
+}
+
 /** The main footer for the app */
 const Footer: FunctionComponent<FooterProps> = ({
-  setShowingGiveHintModal
+  setShowingGiveHintModal,
+  clearHand
 }) => {
   const [showingOptionsModal, setShowingOptionsModal] = useState(false);
   return (
@@ -39,6 +44,7 @@ const Footer: FunctionComponent<FooterProps> = ({
       {showingOptionsModal && (
         <OptionsModal
           onCloseOptionsModal={() => setShowingOptionsModal(false)}
+          onClearHand={clearHand}
         />
       )}
     </div>

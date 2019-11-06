@@ -8,7 +8,7 @@ import {
   useState
 } from "react";
 
-import CardsReducer, { getInitialState } from "./CardsReducer";
+import CardsReducer from "./CardsReducer";
 import Card from "./Card";
 import GiveHintModal from "./GiveHintModal";
 import Footer from "./Footer";
@@ -16,7 +16,6 @@ import { ActionTypes } from "./actions";
 import { Card as CardType } from "./types";
 
 // this initial state and context are created on first render
-let initialState: CardType[];
 export let CardsContext: Context<[CardType[], ((action: ActionTypes) => void)]>;
 
 /**
@@ -46,14 +45,17 @@ const cardsContainerStyle = css`
 `;
 
 interface HandProps {
-  numberOfCards: number;
+  /** Initial state to use when rendering hand; updates are handled with the inner context and reducer */
+  initialState: CardType[];
+
+  /** Function that can be called to wipe out the state of the game and go back to the main menu **/
+  clearHand: () => void;
 }
 
 /** Renders all of the cards in the player's hand */
-const Hand: FunctionComponent<HandProps> = ({ numberOfCards }) => {
+const Hand: FunctionComponent<HandProps> = ({ initialState, clearHand }) => {
   // create our initial state and context if we haven't yet
-  if (!initialState || !CardsContext) {
-    initialState = getInitialState(numberOfCards);
+  if (!CardsContext) {
     CardsContext = createContext<[CardType[], ((action: ActionTypes) => void)]>(
       [initialState, (action: ActionTypes) => {}]
     );
@@ -64,7 +66,7 @@ const Hand: FunctionComponent<HandProps> = ({ numberOfCards }) => {
   // one column for every card
   const cardsGrid = css`
     ${cardsContainerStyle}
-    grid-template-columns: repeat(${numberOfCards}, 1fr);
+    grid-template-columns: repeat(${initialState.length}, 1fr);
   `;
 
   return (
@@ -74,8 +76,11 @@ const Hand: FunctionComponent<HandProps> = ({ numberOfCards }) => {
         the current state and the dispatch function are available to anything using the context
       */}
       <CardsContext.Provider value={useReducer(CardsReducer, initialState)}>
-        <div css={cardsGrid}>{renderCards(numberOfCards)}</div>
-        <Footer setShowingGiveHintModal={setShowingGiveHintModal} />
+        <div css={cardsGrid}>{renderCards(initialState.length)}</div>
+        <Footer
+          setShowingGiveHintModal={setShowingGiveHintModal}
+          clearHand={clearHand}
+        />
         {showingGiveHintModal && (
           <GiveHintModal closeModal={() => setShowingGiveHintModal(false)} />
         )}
